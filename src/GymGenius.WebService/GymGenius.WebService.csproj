@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="G4.Converters" Version="2025.3.7.34" />
+		<PackageReference Include="G4.Extensions" Version="2025.3.7.34" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.3.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\GymGenius.Domain\GymGenius.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="AppData\DataBase.accdb">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

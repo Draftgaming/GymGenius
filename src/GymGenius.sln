@@ -9,6 +9,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymGeniusWebService", "GymG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClient", "WebApiClient\WebApiClient.csproj", "{BAA5DEE2-DE3D-47D4-8336-00EAE6FCA214}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".data", ".data", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		..\data\DataBase-v1.accdb = ..\data\DataBase-v1.accdb
+		..\data\DataBase-v2.laccdb = ..\data\DataBase-v2.laccdb
+		..\data\DataBase.accdb = ..\data\DataBase.accdb
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymGenius.WebService", "GymGenius.WebService\GymGenius.WebService.csproj", "{927D1026-6E69-47DC-A0C5-4B4BE1076F29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymGenius.DataAccess", "GymGenius.DataAccess\GymGenius.DataAccess.csproj", "{E15ACEF1-1F84-463D-98AB-6B7B1C2BFDE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymGenius.Domain", "GymGenius.Domain\GymGenius.Domain.csproj", "{72985739-3C0B-4D46-8684-99ECBC977A61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +40,18 @@ Global
 		{BAA5DEE2-DE3D-47D4-8336-00EAE6FCA214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAA5DEE2-DE3D-47D4-8336-00EAE6FCA214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAA5DEE2-DE3D-47D4-8336-00EAE6FCA214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{927D1026-6E69-47DC-A0C5-4B4BE1076F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{927D1026-6E69-47DC-A0C5-4B4BE1076F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{927D1026-6E69-47DC-A0C5-4B4BE1076F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{927D1026-6E69-47DC-A0C5-4B4BE1076F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E15ACEF1-1F84-463D-98AB-6B7B1C2BFDE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E15ACEF1-1F84-463D-98AB-6B7B1C2BFDE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E15ACEF1-1F84-463D-98AB-6B7B1C2BFDE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E15ACEF1-1F84-463D-98AB-6B7B1C2BFDE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72985739-3C0B-4D46-8684-99ECBC977A61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72985739-3C0B-4D46-8684-99ECBC977A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72985739-3C0B-4D46-8684-99ECBC977A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72985739-3C0B-4D46-8684-99ECBC977A61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

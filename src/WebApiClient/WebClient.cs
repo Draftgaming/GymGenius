@@ -81,13 +81,13 @@ namespace WebApiClient
             this.request.Content = objectContent;
             using(HttpClient client = new HttpClient())
             {
-                this.response = await. client.SendAsync(this.request);
+                this.response = await client.SendAsync(this.request);
                 if (this.response.IsSuccessStatusCode == true)
                     return await this.response.Content.ReadAsAsync<bool>();
             }
             return false;
         }
-        ublic async Task<bool> Post(T model, List<Stream> file)
+        public async Task<bool> Post(T model, List<Stream> file)
         {
             this.request.Method = HttpMethod.Post;
             MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();
@@ -105,7 +105,7 @@ namespace WebApiClient
             return false;
         }
 
-        ublic async Task<bool> Post(T model, List<Stream> files)
+        public async Task<bool> Post(T model, List<Stream> files)
         {
             this.request.Method = HttpMethod.Post;
             MultipartFormDataContent multipartFormDataContent = new MultipartFormDataContent();

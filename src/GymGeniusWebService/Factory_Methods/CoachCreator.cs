@@ -16,7 +16,6 @@ namespace GymGeniusWebService.Factory_Methods
 
             };
             return coach;
-
         }
     }
 

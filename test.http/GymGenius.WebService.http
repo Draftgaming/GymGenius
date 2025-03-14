@@ -1,0 +1,6 @@
+@GymGenius.WebService_HostAddress = http://localhost:5125
+
+GET {{GymGenius.WebService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
