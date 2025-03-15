@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+//TODO To put SQL into these reposetories and make the rest of the repos
 namespace GymGenius.Domain.Repositories
 {
     public class CoachRepository(IDbContext dbContext) : ICoachRepository
@@ -25,7 +27,7 @@ namespace GymGenius.Domain.Repositories
             return [];
         }
 
-        public CoachModel Get(string id)
+        public CoachModel Get(string id) 
         {
             const string sql = "SELECT * FROM [Coach] WHERE [Coach_ID] = @coachId";
 

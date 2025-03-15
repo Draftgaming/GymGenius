@@ -5,6 +5,7 @@ namespace GymGenius.Domain
     /// <summary>
     /// Represents the core domain functionality, providing access to the GymGenius repository.
     /// </summary>
+    /// TODO all the repos with and interfaces here 
     public interface IDomain
     {
         public ICoachRepository CoachRepository { get; }
