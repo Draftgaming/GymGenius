@@ -18,7 +18,7 @@ namespace GymGenius.Domain.Repositories
     {
         private readonly IDbContext _dbContext = dbContext;
 
-        public IEnumerable<CoachModel> Get()
+        public IEnumerable<CoachModel> Get()//get all 
         {
             const string sql = "SELECT * FROM [Coach]";
 
@@ -38,17 +38,30 @@ namespace GymGenius.Domain.Repositories
 
         public bool NewEntity(CoachModel entity)
         {
-            throw new NotImplementedException();
+            string sql = $@"INSERT INTO [Coach] WHERE [Coach_ID] = @coachId";
+
+            var data = _dbContext.AddSqlData(sql, (Name: "@coachId", Value: entity));
+            
+            return data;
         }
 
         public bool RemoveEntity(CoachModel entity)
         {
-            throw new NotImplementedException();
+            //const string sql = $@"DELETE FROM [Coach] WHERE [Coach_ID] = @coachid";
+            var sql = $@"DELETE FROM [Coach] WHERE [Coach_ID] = {entity.Id}";
+
+            var data = _dbContext.RemoveSqlData(sql);
+            
+            return data;
         }
 
         public bool RemoveEntity(string id)
         {
-            throw new NotImplementedException();
+            const string sql = "SELECT * FROM [Coach] WHERE [Coach_ID] = @coachId";
+
+            using var data = _dbContext.ReadSqlData(sql, (Name: "@coachId", Value: id));
+
+            return data != null;
         }
 
         public bool UpdateEntity(CoachModel entity)
