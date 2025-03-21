@@ -66,7 +66,9 @@ namespace GymGenius.Domain.Repositories
 
         public bool UpdateEntity(CoachModel entity)
         {
-            throw new NotImplementedException();
+            const string sql = $@"UPDATE [Coach] set [Coach_Name] = @CoachName where [Coach_ID] = @CoachId";
+            var data = _dbContext.UpdateSqlData(sql, (Name: "@CoachId", Value: entity));
+            return data;
         }
     }
 }
