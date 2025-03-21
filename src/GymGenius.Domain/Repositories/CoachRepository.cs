@@ -11,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-//TODO To put SQL into these reposetories and make the rest of the repos
 namespace GymGenius.Domain.Repositories
 {
     public class CoachRepository(IDbContext IDbContext) : ICoachRepository
