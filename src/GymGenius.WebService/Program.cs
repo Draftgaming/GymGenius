@@ -125,10 +125,17 @@ builder.Services
 #endregion
 
 #region *** Dependencies  ***
-builder.Services.AddSingleton(implementationInstance: DbContext.Instance);
+
+builder.Services.AddScoped<IDbContext, DbContext>();
+builder.Services.AddSingleton<IDbContext, DbContext>();
 builder.Services.AddTransient<ICoachRepository, CoachRepository>();
 builder.Services.AddTransient<IGymGeniusRepository, GymGeniusRepository>();
+builder.Services.AddTransient<IPlanRepository, PlanRepository>();
+builder.Services.AddTransient<IExerciseRepository, ExersiceRepository>();
+builder.Services.AddTransient<IMachinesRepository, MachineRepository>();
+builder.Services.AddTransient<IPeopleRepository, PeopleRepository>();
 builder.Services.AddTransient<IDomain, Domain>();
+
 #endregion
 
 #region *** Configuration ***
@@ -203,3 +210,8 @@ app.UseStaticFiles(new StaticFileOptions
 #endregion
 
 await app.RunAsync();
+
+static IDbContext GetInstance()
+{
+    return DbContext.Instance;
+}

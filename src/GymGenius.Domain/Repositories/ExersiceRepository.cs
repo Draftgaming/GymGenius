@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace GymGenius.Domain.Repositories
 {
-    public class ExersiceRepository(DbContext dbContext) : IExerciseRepository
+    public class ExersiceRepository(IDbContext IDbContext) : IExerciseRepository
     {
-        private readonly DbContext _dbContext = dbContext;
+        private readonly IDbContext _IDbContext = IDbContext;
 
         public IEnumerable<ExersiceModel> Get()//get all 
         {
             const string sql = "SELECT * FROM [Exersice]";
 
-            using var data = _dbContext.ReadSqlData(sql);
+            using var data = _IDbContext.ReadSqlData(sql);
 
             return [];
         }
@@ -26,7 +26,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [Exersice] WHERE [Exersice_ID] = @ExersiceId";
 
-            using var data = _dbContext.ReadSqlData(sql, (Name: "@ExersiceId", Value: id));
+            using var data = _IDbContext.ReadSqlData(sql, (Name: "@ExersiceId", Value: id));
 
             return ModelFactory.NewModel<ExersiceModel>();
         }
@@ -35,7 +35,7 @@ namespace GymGenius.Domain.Repositories
         {
             string sql = $@"INSERT INTO [Exersice] WHERE [Exersice_ID] = @ExersiceId";
 
-            var data = _dbContext.AddSqlData(sql, (Name: "@ExersiceId", Value: entity));
+            var data = _IDbContext.AddSqlData(sql, (Name: "@ExersiceId", Value: entity));
 
             return data;
         }
@@ -45,7 +45,7 @@ namespace GymGenius.Domain.Repositories
             //const string sql = $@"DELETE FROM [Exersice] WHERE [Exersice_ID] = @ExersiceId";
             var sql = $@"DELETE FROM [Exersice] WHERE [Exersice_ID] = {entity.Id}";
 
-            var data = _dbContext.RemoveSqlData(sql);
+            var data = _IDbContext.RemoveSqlData(sql);
 
             return data;
         }
@@ -54,7 +54,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [Exersice] WHERE [Exersice_ID] = @ExersiceId";
 
-            using var data = _dbContext.ReadSqlData(sql, (Name: "@ExersiceId", Value: id));
+            using var data = _IDbContext.ReadSqlData(sql, (Name: "@ExersiceId", Value: id));
 
             return data != null;
         }
@@ -63,7 +63,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = $@"UPDATE [Exersice] set [Exersice_Name] = @ExersiceName where [Exersice_ID] = @ExersiceId";
 
-            var data = _dbContext.UpdateSqlData(sql, (Name: "@ExersiceId", Value: entity));
+            var data = _IDbContext.UpdateSqlData(sql, (Name: "@ExersiceId", Value: entity));
 
             return data;
         }

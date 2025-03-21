@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymGenius.Domain.Abstraction
 {
-    internal interface IExerciseRepository: IRepository<ExersiceModel>
+    public interface IExerciseRepository: IRepository<ExersiceModel>
     {
     }
 }

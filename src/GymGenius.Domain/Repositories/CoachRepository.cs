@@ -14,15 +14,15 @@ using System.Threading.Tasks;
 //TODO To put SQL into these reposetories and make the rest of the repos
 namespace GymGenius.Domain.Repositories
 {
-    public class CoachRepository(IDbContext dbContext) : ICoachRepository
+    public class CoachRepository(IDbContext IDbContext) : ICoachRepository
     {
-        private readonly IDbContext _dbContext = dbContext;
+        private readonly IDbContext _IDbContext = IDbContext;
 
         public IEnumerable<CoachModel> Get()//get all 
         {
             const string sql = "SELECT * FROM [Coach]";
 
-            using var data = _dbContext.ReadSqlData(sql);
+            using var data = _IDbContext.ReadSqlData(sql);
 
             return [];
         }
@@ -31,7 +31,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [Coach] WHERE [Coach_ID] = @coachId";
 
-            using var data = _dbContext.ReadSqlData(sql, (Name: "@coachId", Value: id));
+            using var data = _IDbContext.ReadSqlData(sql, (Name: "@coachId", Value: id));
 
             return ModelFactory.NewModel<CoachModel>();
         }
@@ -40,7 +40,7 @@ namespace GymGenius.Domain.Repositories
         {
             string sql = $@"INSERT INTO [Coach] WHERE [Coach_ID] = @coachId";
 
-            var data = _dbContext.AddSqlData(sql, (Name: "@coachId", Value: entity));
+            var data = _IDbContext.AddSqlData(sql, (Name: "@coachId", Value: entity));
             
             return data;
         }
@@ -50,7 +50,7 @@ namespace GymGenius.Domain.Repositories
             //const string sql = $@"DELETE FROM [Coach] WHERE [Coach_ID] = @coachid";
             var sql = $@"DELETE FROM [Coach] WHERE [Coach_ID] = {entity.Id}";
 
-            var data = _dbContext.RemoveSqlData(sql);
+            var data = _IDbContext.RemoveSqlData(sql);
             
             return data;
         }
@@ -59,7 +59,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [Coach] WHERE [Coach_ID] = @coachId";
 
-            using var data = _dbContext.ReadSqlData(sql, (Name: "@coachId", Value: id));
+            using var data = _IDbContext.ReadSqlData(sql, (Name: "@coachId", Value: id));
 
             return data != null;
         }
@@ -67,7 +67,9 @@ namespace GymGenius.Domain.Repositories
         public bool UpdateEntity(CoachModel entity)
         {
             const string sql = $@"UPDATE [Coach] set [Coach_Name] = @CoachName where [Coach_ID] = @CoachId";
-            var data = _dbContext.UpdateSqlData(sql, (Name: "@CoachId", Value: entity));
+            
+            var data = _IDbContext.UpdateSqlData(sql, (Name: "@CoachId", Value: entity));
+            
             return data;
         }
     }

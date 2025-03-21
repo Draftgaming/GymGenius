@@ -14,5 +14,13 @@ namespace GymGenius.Domain
         /// Gets the repository instance used for accessing GymGenius data.
         /// </summary>
         IGymGeniusRepository GymGenius { get; }
+
+        IPlanRepository PlanRepository {  get; }
+
+        IExerciseRepository ExerciseRepository { get; }
+
+        IMachinesRepository MachinesRepository { get; }
+
+        IPeopleRepository PeopleRepository { get; }
     }
 }

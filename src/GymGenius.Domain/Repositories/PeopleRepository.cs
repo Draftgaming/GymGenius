@@ -6,15 +6,15 @@ using System.Collections.Generic;
 
 namespace GymGenius.Domain.Repositories
 {
-    public class PeopleRepository(IDbContext dbContext) : IPeopleRepository
+    public class PeopleRepository(IDbContext IDbContext) : IPeopleRepository
     {
-        private readonly IDbContext _dbContext = dbContext;
+        private readonly IDbContext _IDbContext = IDbContext;
 
         public IEnumerable<PeopleModel> Get()//get all 
         {
             const string sql = "SELECT * FROM [People]";
 
-            using var data = _dbContext.ReadSqlData(sql);
+            using var data = _IDbContext.ReadSqlData(sql);
 
             return [];
         }
@@ -23,7 +23,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [People] WHERE [People_ID] = @peopleId";
 
-            using var data = _dbContext.ReadSqlData(sql, (Name: "@peopleId", Value: id));
+            using var data = _IDbContext.ReadSqlData(sql, (Name: "@peopleId", Value: id));
 
             return ModelFactory.NewModel<PeopleModel>();
         }
@@ -32,7 +32,7 @@ namespace GymGenius.Domain.Repositories
         {
             string sql = $@"INSERT INTO [People] WHERE [People_ID] = @peopleId";
 
-            var data = _dbContext.AddSqlData(sql, (Name: "@peopleId", Value: entity));
+            var data = _IDbContext.AddSqlData(sql, (Name: "@peopleId", Value: entity));
 
             return data;
         }
@@ -42,7 +42,7 @@ namespace GymGenius.Domain.Repositories
             //const string sql = $@"DELETE FROM [People] WHERE [People_ID] = @peopleId";
             var sql = $@"DELETE FROM [People] WHERE [People_ID] = {entity.Id}";
 
-            var data = _dbContext.RemoveSqlData(sql);
+            var data = _IDbContext.RemoveSqlData(sql);
 
             return data;
         }
@@ -51,7 +51,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [People] WHERE [People_ID] = @peopleId";
 
-            using var data = _dbContext.ReadSqlData(sql, (Name: "@peopleId", Value: id));
+            using var data = _IDbContext.ReadSqlData(sql, (Name: "@peopleId", Value: id));
 
             return data != null;
         }
@@ -59,7 +59,9 @@ namespace GymGenius.Domain.Repositories
         public bool UpdateEntity(PeopleModel entity)
         {
             const string sql = $@"UPDATE [People] set [People_Name] = @PeopleName where [People_ID] = @peopleId";
-            var data = _dbContext.UpdateSqlData(sql, (Name: "@peopleId", Value: entity));
+            
+            var data = _IDbContext.UpdateSqlData(sql, (Name: "@peopleId", Value: entity));
+            
             return data;
         }
     }

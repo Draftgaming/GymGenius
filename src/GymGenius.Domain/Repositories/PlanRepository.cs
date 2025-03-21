@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GymGenius.Domain.Repositories
 {
-    public class PlanRepository(DbContext dbContext) : IPlanRepository
+    public class PlanRepository(IDbContext dbContext) : IPlanRepository
     {
-        private readonly DbContext _dbContext = dbContext;
+        private readonly IDbContext _dbContext = dbContext;
 
         public IEnumerable<PlanModel> Get()//get all 
         {

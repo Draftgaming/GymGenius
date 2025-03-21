@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace GymGenius.Domain.Repositories
 {
-    public class MachineRepository(DbContext dbContext) : IMachinesRepository
+    public class MachineRepository(IDbContext IDbContext) : IMachinesRepository
     {
-        private readonly DbContext _dbContext = dbContext;
+        private readonly IDbContext _IDbContext = IDbContext;
 
         public IEnumerable<MachineModel> Get()//get all 
         {
             const string sql = "SELECT * FROM [Machine]";
 
-            using var data = _dbContext.ReadSqlData(sql);
+            using var data = _IDbContext.ReadSqlData(sql);
 
             return [];
         }
@@ -26,7 +26,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [Machine] WHERE [Machine_ID] = @MachineId";
 
-            using var data = _dbContext.ReadSqlData(sql, (Name: "@MachineId", Value: id));
+            using var data = _IDbContext.ReadSqlData(sql, (Name: "@MachineId", Value: id));
 
             return ModelFactory.NewModel<MachineModel>();
         }
@@ -35,7 +35,7 @@ namespace GymGenius.Domain.Repositories
         {
             string sql = $@"INSERT INTO [Machine] WHERE [Machine_ID] = @MachineId";
 
-            var data = _dbContext.AddSqlData(sql, (Name: "@MachineId", Value: entity));
+            var data = _IDbContext.AddSqlData(sql, (Name: "@MachineId", Value: entity));
 
             return data;
         }
@@ -45,7 +45,7 @@ namespace GymGenius.Domain.Repositories
             //const string sql = $@"DELETE FROM [Machine] WHERE [Machine_ID] = @MachineId";
             var sql = $@"DELETE FROM [Machine] WHERE [Machine_ID] = {entity.Id}";
 
-            var data = _dbContext.RemoveSqlData(sql);
+            var data = _IDbContext.RemoveSqlData(sql);
 
             return data;
         }
@@ -54,7 +54,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [Machine] WHERE [Machine_ID] = @MachineId";
 
-            using var data = _dbContext.ReadSqlData(sql, (Name: "@MachineId", Value: id));
+            using var data = _IDbContext.ReadSqlData(sql, (Name: "@MachineId", Value: id));
 
             return data != null;
         }
@@ -63,7 +63,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = $@"UPDATE [Machine] set [Machine_Name] = @MachineName where [Machine_ID] = @MachineId";
 
-            var data = _dbContext.UpdateSqlData(sql, (Name: "@MachineId", Value: entity));
+            var data = _IDbContext.UpdateSqlData(sql, (Name: "@MachineId", Value: entity));
 
             return data;
         }
