@@ -1,6 +1,7 @@
 ﻿using GymGenius.DataAccess;
 using GymGenius.DataAccess.Models;
 using GymGenius.Domain.Abstraction;
+using GymGenius.Domain.Extensions;
 
 using System;
 using System.Collections.Generic;
@@ -15,31 +16,30 @@ namespace GymGenius.Domain.Repositories
 {
     public class CoachRepository(IDbContext IDbContext) : ICoachRepository
     {
-        private readonly IDbContext _IDbContext = IDbContext;
+        private readonly IDbContext _dbContext = IDbContext;
 
-        public IEnumerable<CoachModel> Get()//get all 
+        public IEnumerable<CoachModel> Get()
         {
             const string sql = "SELECT * FROM [Coach]";
 
-            using var data = _IDbContext.ReadSqlData(sql);
-
-            return [];
+            return _dbContext.ReadSqlData(sql).GetEntities<CoachModel>();
         }
 
-        public CoachModel Get(string id) 
+        public CoachModel Get(string id)
         {
             const string sql = "SELECT * FROM [Coach] WHERE [Coach_ID] = @coachId";
 
-            using var data = _IDbContext.ReadSqlData(sql, (Name: "@coachId", Value: id));
-
-            return ModelFactory.NewModel<CoachModel>();
+            return _dbContext
+                .ReadSqlData(sql, (Name: "@coachId", Value: id))
+                .GetEntities<CoachModel>()
+                .FirstOrDefault() ?? new CoachModel();
         }
 
         public bool NewEntity(CoachModel entity)
         {
-            string sql = $@"INSERT INTO [Coach] WHERE [Coach_ID] = @coachId";
+            string sql = $"INSERT INTO [Coach] ([Coach_Name]) VALUES ('{entity.CoachName}');";
 
-            var data = _IDbContext.AddSqlData(sql, (Name: "@coachId", Value: entity));
+            var data = _dbContext.AddSqlData(sql);
             
             return data;
         }
@@ -49,25 +49,25 @@ namespace GymGenius.Domain.Repositories
             //const string sql = $@"DELETE FROM [Coach] WHERE [Coach_ID] = @coachid";
             var sql = $@"DELETE FROM [Coach] WHERE [Coach_ID] = {entity.Id}";
 
-            var data = _IDbContext.RemoveSqlData(sql);
+            var data = _dbContext.RemoveSqlData(sql);
             
             return data;
         }
 
         public bool RemoveEntity(string id)
         {
-            const string sql = "SELECT * FROM [Coach] WHERE [Coach_ID] = @coachId";
+            const string sql = "DELETE * FROM [Coach] WHERE [Coach_ID] = @coachId";
 
-            using var data = _IDbContext.ReadSqlData(sql, (Name: "@coachId", Value: id));
+            var data = _dbContext.RemoveSqlData(sql, (Name: "@coachId", Value: id));
 
-            return data != null;
+            return data;
         }
 
         public bool UpdateEntity(CoachModel entity)
         {
             const string sql = $@"UPDATE [Coach] set [Coach_Name] = @CoachName where [Coach_ID] = @CoachId";
             
-            var data = _IDbContext.UpdateSqlData(sql, (Name: "@CoachId", Value: entity));
+            var data = _dbContext.UpdateSqlData(sql, (Name: "@CoachId", Value: entity));
             
             return data;
         }

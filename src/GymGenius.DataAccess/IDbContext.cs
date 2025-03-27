@@ -80,6 +80,8 @@ namespace GymGenius.DataAccess
         /// <returns><c>true</c> if the delete was successful; otherwise, <c>false</c>.</returns>
         bool RemoveSqlData(string sql);
 
+        bool RemoveSqlData(string sql, params (string Name, object Value)[] parameters);
+
         /// <summary>
         /// Rolls back the current database transaction.
         /// </summary>

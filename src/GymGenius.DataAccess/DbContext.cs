@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.Runtime.Versioning;
+using System.Text.Json;
 
 namespace GymGenius.DataAccess
 {
@@ -131,6 +133,12 @@ namespace GymGenius.DataAccess
         {
             // Execute a DELETE SQL command using the helper method.
             return InvokeNonQuery(_connection, commandType: "DELETE", sql);
+        }
+
+        public bool RemoveSqlData(string sql, params (string Name, object Value)[] parameters)
+        {
+            // Execute a DELETE SQL command using the helper method.
+            return InvokeNonQuery(_connection, commandType: "DELETE", sql, parameters);
         }
 
         /// <inheritdoc />

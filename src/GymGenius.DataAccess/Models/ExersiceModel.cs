@@ -8,5 +8,9 @@ namespace GymGenius.DataAccess.Models
 {
     public class ExersiceModel: ModelBase
     {
+        public string ExersiceName { get; set; }
+        public MachineModel Machines { get; set; }
+        public List<PeopleModel> People { get; set; }
+        public List<PlanModel> Plans { get; set; }
     }
 }
