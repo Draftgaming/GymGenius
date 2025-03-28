@@ -44,7 +44,7 @@ namespace GymGenius.WebService.Controllers
             summary: "",
             description: "")]
         [SwaggerResponse(statusCode: StatusCodes.Status200OK, description: "", type: typeof(string), contentTypes: MediaTypeNames.Text.Plain)]
-        public IActionResult New([FromBody]CoachModel coachModel)
+        public IActionResult New([FromBody] CoachModel coachModel)
         {
             var isSuccess = _domain.CoachRepository.NewEntity(coachModel);
             var statusCode = isSuccess ? StatusCodes.Status200OK : StatusCodes.Status400BadRequest;
@@ -65,6 +65,18 @@ namespace GymGenius.WebService.Controllers
 
 
             return new StatusCodeResult(statusCode);
+        }
+
+
+        [HttpPost, Route("{id}")]
+        [SwaggerOperation(
+            summary: "Update",
+            description: "")]
+        [SwaggerResponse(statusCode: StatusCodes.Status200OK, description: "", type: typeof(string), contentTypes: MediaTypeNames.Text.Plain)]
+        public IActionResult Update(CoachModel coachmodel)
+        {
+            var coach = _domain.CoachRepository.UpdateEntity(coachmodel);
+            return Ok(coach);
         }
     }
 }
