@@ -40,42 +40,34 @@ namespace GymGenius.Domain.Repositories
             string sql = $"INSERT INTO [Coach] ([Coach_Name]) VALUES ('{entity.CoachName}');";
 
             var data = _dbContext.AddSqlData(sql);
-            
+
             return data;
         }
 
         public bool RemoveEntity(CoachModel entity)
         {
-            //const string sql = $@"DELETE FROM [Coach] WHERE [Coach_ID] = @coachid";
-            var sql = $@"DELETE FROM [Coach] WHERE [Coach_ID] = {entity.Id}";
+            //const string sql = $"DELETE FROM [Coach] WHERE [Coach_ID] = @coachid";
+            var sql = $"DELETE FROM [Coach] WHERE [Coach_ID] = {entity.Id}";
 
-            var data = _dbContext.RemoveSqlData(sql);
-            
-            return data;
+            return _dbContext.RemoveSqlData(sql);
         }
 
         public bool RemoveEntity(string id)
         {
             const string sql = "DELETE * FROM [Coach] WHERE [Coach_ID] = @coachId";
 
-            var data = _dbContext.RemoveSqlData(sql, (Name: "@coachId", Value: id));
-
-            return data;
+            return _dbContext.RemoveSqlData(sql, (Name: "@coachId", Value: id));
         }
 
         public bool UpdateEntity(CoachModel entity)
         {
-            const string sql = @"UPDATE [Coach] 
-                         SET [Coach_Name] = @CoachName
-                         WHERE [Coach_ID] = @CoachId";
-            ;
+            var sql = "UPDATE [Coach] " +
+                $"SET [Coach_Name] = '{entity.CoachName}' " +
+                "WHERE [Coach_ID] = @CoachId";
 
-            var data = _dbContext.UpdateSqlData(sql,
-        (Name: "@CoachId", Value: entity.Id),
-        (Name: "@CoachName", Value: entity.CoachName));
-
-
-            return data;
+            return _dbContext.UpdateSqlData(
+                sql,
+                (Name: "@CoachId", Value: entity.CoachId));
         }
     }
 }

@@ -61,22 +61,36 @@ namespace GymGenius.WebService.Controllers
         public IActionResult Remove(string id)
         {
             var isSuccess = _domain.CoachRepository.RemoveEntity(id);
-            var statusCode = isSuccess ? StatusCodes.Status204NoContent : StatusCodes.Status400BadRequest;
-
+            var statusCode = isSuccess
+                ? StatusCodes.Status204NoContent
+                : StatusCodes.Status400BadRequest;
 
             return new StatusCodeResult(statusCode);
         }
 
 
-        [HttpPost, Route("{id}")]
+        [HttpPut, Route("{id}")]
         [SwaggerOperation(
             summary: "Update",
             description: "")]
         [SwaggerResponse(statusCode: StatusCodes.Status200OK, description: "", type: typeof(string), contentTypes: MediaTypeNames.Text.Plain)]
-        public IActionResult Update(CoachModel coachmodel)
+        public IActionResult Update(string id, CoachModel coachmodel)
         {
-            var coach = _domain.CoachRepository.UpdateEntity(coachmodel);
-            return Ok(coach);
+            var isGoodRequest = long.TryParse(id, out long idOut);
+
+            if (!isGoodRequest)
+            {
+                return BadRequest("Invalid ID format.");
+            }
+
+            coachmodel.CoachId = idOut;
+            var isSuccess = _domain.CoachRepository.UpdateEntity(coachmodel);
+
+            var statusCode = isSuccess
+                ? StatusCodes.Status204NoContent
+                : StatusCodes.Status400BadRequest;
+
+            return new StatusCodeResult(statusCode);
         }
     }
 }
