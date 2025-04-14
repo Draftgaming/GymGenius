@@ -1,68 +1,68 @@
 ﻿using GymGenius.DataAccess;
 using GymGenius.DataAccess.Models;
 using GymGenius.Domain.Abstraction;
+using GymGenius.Domain.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GymGenius.Domain.Repositories
 {
     public class PeopleRepository(IDbContext IDbContext) : IPeopleRepository
     {
-        private readonly IDbContext _IDbContext = IDbContext;
+        private readonly IDbContext _dbContext = IDbContext;
 
-        public IEnumerable<PeopleModel> Get()//get all 
+        public IEnumerable<PeopleModel> Get()
         {
-            const string sql = "SELECT * FROM [People]";
+            const string sql = "SELECT * FROM [Peoples]";
 
-            using var data = _IDbContext.ReadSqlData(sql);
-
-            return [];
+            return _dbContext.ReadSqlData(sql).GetEntities<PeopleModel>();
         }
 
         public PeopleModel Get(string id)
         {
-            const string sql = "SELECT * FROM [People] WHERE [People_ID] = @peopleId";
+            const string sql = "SELECT * FROM [Peoples] WHERE [People_ID] = @peopleId";
 
-            using var data = _IDbContext.ReadSqlData(sql, (Name: "@peopleId", Value: id));
-
-            return ModelFactory.NewModel<PeopleModel>();
+            return _dbContext
+                .ReadSqlData(sql, (Name: "@peopleId", Value: id))
+                .GetEntities<PeopleModel>()
+                .FirstOrDefault() ?? new PeopleModel();
         }
 
         public bool NewEntity(PeopleModel entity)
         {
-            string sql = $@"INSERT INTO [People] WHERE [People_ID] = @peopleId";
+            string sql = $"INSERT INTO [Peoples] ([People_Name]) VALUES ('{entity.PeopleName}');";
 
-            var data = _IDbContext.AddSqlData(sql, (Name: "@peopleId", Value: entity));
+            var data = _dbContext.AddSqlData(sql);
 
             return data;
         }
 
         public bool RemoveEntity(PeopleModel entity)
         {
-            //const string sql = $@"DELETE FROM [People] WHERE [People_ID] = @peopleId";
-            var sql = $@"DELETE FROM [People] WHERE [People_ID] = {entity.Id}";
+           
+            var sql = $"DELETE FROM [Peoples] WHERE [People_ID] = {entity.Id}";
 
-            var data = _IDbContext.RemoveSqlData(sql);
-
-            return data;
+            return _dbContext.RemoveSqlData(sql);
         }
 
         public bool RemoveEntity(string id)
         {
-            const string sql = "SELECT * FROM [People] WHERE [People_ID] = @peopleId";
+            const string sql = "DELETE * FROM [Peoples] WHERE [People_ID] = @peopleId";
 
-            using var data = _IDbContext.ReadSqlData(sql, (Name: "@peopleId", Value: id));
-
-            return data != null;
+            return _dbContext.RemoveSqlData(sql, (Name: "@peopleId", Value: id));
         }
 
         public bool UpdateEntity(PeopleModel entity)
         {
-            const string sql = $@"UPDATE [People] set [People_Name] = @PeopleName where [People_ID] = @peopleId";
-            
-            var data = _IDbContext.UpdateSqlData(sql, (Name: "@peopleId", Value: entity));
-            
-            return data;
+            var sql = "UPDATE [Peoples] " +
+                $"SET [People_Name] = '{entity.PeopleName}' " +
+                "WHERE [People_Id] = @PeopleId";
+
+            return _dbContext.UpdateSqlData(
+                sql,
+                (Name: "@PeopleId", Value: entity.PeopleId));
         }
     }
 }
+

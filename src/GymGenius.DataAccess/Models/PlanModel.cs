@@ -9,6 +9,10 @@ namespace GymGenius.DataAccess.Models
 {
     public class PlanModel: ModelBase
     {
+        [JsonPropertyName(name: "Plan_ID")]
+        public long PlanId { get; set; }
+
+
         [JsonPropertyName(name: "Plan_Exersice")]
 
         public string PlanExercise { get; set; }

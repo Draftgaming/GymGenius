@@ -16,7 +16,7 @@ namespace GymGenius.DataAccess.Models
         public string MusclesDescription { get; set; }
 
        
-        [JsonPropertyName(name: "Machine_ID")]
-        public List<MachineModel> Machines { get; set; }
+       // [JsonPropertyName(name: "Machine_ID")]
+        //public List<MachineModel> Machines { get; set; }
     }
 }
