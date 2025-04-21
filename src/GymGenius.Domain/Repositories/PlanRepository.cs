@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GymGenius.Domain.Extensions;
 
 namespace GymGenius.Domain.Repositories
 {
@@ -17,9 +18,7 @@ namespace GymGenius.Domain.Repositories
         {
             const string sql = "SELECT * FROM [Plans]";
 
-            using var data = _dbContext.ReadSqlData(sql);
-
-            return [];
+            return _dbContext.ReadSqlData(sql).GetEntities<PlanModel>();
         }
 
         public PlanModel Get(string id)
@@ -33,9 +32,10 @@ namespace GymGenius.Domain.Repositories
 
         public bool NewEntity(PlanModel entity)
         {
-            string sql = $@"INSERT INTO [Plans] WHERE [Plan_ID] = @PlanId";
+            
+            string sql = $"INSERT INTO [Plans] (Plan_Exercise, Plan_Name) VALUES ('{entity.PlanExercise}', '{entity.PlanName}')";
 
-            var data = _dbContext.AddSqlData(sql, (Name: "@PlanId", Value: entity));
+            var data = _dbContext.AddSqlData(sql);
 
             return data;
         }
@@ -52,7 +52,7 @@ namespace GymGenius.Domain.Repositories
 
         public bool RemoveEntity(string id)
         {
-            const string sql = "SELECT * FROM [Plans] WHERE [Plan_ID] = @PlanId";
+            const string sql = "DELETE * FROM [Plans] WHERE [Plan_ID] = @PlanId";
 
             using var data = _dbContext.ReadSqlData(sql, (Name: "@PlanId", Value: id));
 
