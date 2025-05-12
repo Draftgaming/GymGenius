@@ -29,9 +29,22 @@ namespace GymGenius.Domain.Repositories
                 .FirstOrDefault() ?? new PeopleModel();
         }
 
+        // TODO: Add all fields
+        /*
+        {
+          "People_Name": "moshe",
+          "People_Number": "0005555666",
+          "People_Weight": "84",
+          "People_Age": "30",
+          "People_Password": "a",
+          "People_Email": "a@a.a",
+          "Coach_ID": 22,
+          "Plan_ID": 10
+        }
+         */
         public bool NewEntity(PeopleModel entity)
         {
-            string sql = $"INSERT INTO [Peoples] ([People_Name]) VALUES ('{entity.PeopleName}');";
+            string sql = $"INSERT INTO [Peoples] ([People_Name],[Coach_ID],[Plan_ID]) VALUES ('{entity.PeopleName}',{entity.CoachId},{entity.PlanId});";
 
             var data = _dbContext.AddSqlData(sql);
 
