@@ -1,0 +1,57 @@
+﻿@page
+@model GymGenius.Ui.Pages.SignInModel
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+
+<h2>Sign In</h2>
+
+<form method="post">
+    <div>
+        <label>Name</label>
+        <input asp-for="SignInUser.PeopleName" class="form-control" />
+    </div>
+
+    <div>
+        <label>Phone Number</label>
+        <input asp-for="SignInUser.PeopleNumber" class="form-control" />
+    </div>
+
+    <div>
+        <label>Weight</label>
+        <input asp-for="SignInUser.PeopleWeight" class="form-control" />
+    </div>
+
+    <div>
+        <label>Age</label>
+        <input asp-for="SignInUser.PeopleAge" class="form-control" />
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input asp-for="SignInUser.PeopleEmail" class="form-control" type="email" />
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="SignInUser.PeoplePassword" class="form-control" type="password" />
+    </div>
+
+    <div>
+        <label>Coach ID</label>
+        <input asp-for="SignInUser.CoachId" class="form-control" type="number" />
+    </div>
+
+    <div>
+        <label>Plan ID</label>
+        <input asp-for="SignInUser.PlanId" class="form-control" type="number" />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Submit</button>
+</form>
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <p class="mt-3">@Model.Message</p>
+}

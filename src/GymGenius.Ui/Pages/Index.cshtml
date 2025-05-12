@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@Model.ApiData
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+    @if (Model.ApiData != null && Model.ApiData.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var person in Model.ApiData)
+                {
+                    <tr>
+                        <td>@person.PeopleName</td>
+                        <td>@person.PeopleEmail</td>
+                        <td>@person.PeopleNumber</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No data available.</p>
+    }
+</div>

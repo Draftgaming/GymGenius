@@ -210,8 +210,3 @@ app.UseStaticFiles(new StaticFileOptions
 #endregion
 
 await app.RunAsync();
-
-static IDbContext GetInstance()
-{
-    return DbContext.Instance;
-}
