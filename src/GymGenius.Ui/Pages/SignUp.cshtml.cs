@@ -8,17 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GymGenius.Ui.Pages
 {
-    public class SignInModel : PageModel
+    public class SignUpModel : PageModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public SignInModel(IHttpClientFactory httpClientFactory)
+        public SignUpModel(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
         [BindProperty]
-        public LoginModel LoginUser { get; set; } = new();
+        public PeopleModel SignUpUser { get; set; } = new();
 
         public string Message { get; set; }
 
@@ -34,25 +34,19 @@ namespace GymGenius.Ui.Pages
 
             var client = _httpClientFactory.CreateClient("ApiClient");
 
-            var json = JsonSerializer.Serialize(LoginUser);
+            var json = JsonSerializer.Serialize(SignUpUser);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync("/api/v1/people", content);
 
             if (response.IsSuccessStatusCode)
             {
-                Message = "Signed in successfully!";
+                Message = "Signed Up successfully!";
                 return RedirectToPage("/Index"); // or your dashboard
             }
 
             Message = $"Failed to sign in: {response.StatusCode}";
             return Page();
         }
-    }
-
-    public class LoginModel
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

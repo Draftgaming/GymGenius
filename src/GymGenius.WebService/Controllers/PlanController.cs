@@ -14,7 +14,7 @@ namespace GymGenius.WebService.Controllers
     [ApiController]
     [Route("/api/v1/[controller]")]
     [SwaggerTag(description: "")]
-    public class PlanesController(IDomain domain) : ControllerBase
+    public class PlansController(IDomain domain) : ControllerBase
     {
         private readonly IDomain _domain = domain;
 
@@ -25,8 +25,8 @@ namespace GymGenius.WebService.Controllers
         [SwaggerResponse(statusCode: StatusCodes.Status200OK, description: "", type: typeof(string), contentTypes: MediaTypeNames.Text.Plain)]
         public IActionResult Get()
         {
-            var Planes = _domain.PlanRepository.Get() ?? [];
-            return Ok(Planes);
+            var Plans = _domain.PlanRepository.Get() ?? [];
+            return Ok(Plans);
         }
 
         [HttpGet, Route("{id}")]

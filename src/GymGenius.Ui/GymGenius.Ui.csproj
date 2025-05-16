@@ -1,8 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.OleDb" Version="9.0.5" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GymGenius.DataAccess\GymGenius.DataAccess.csproj" />
