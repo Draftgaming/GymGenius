@@ -1,5 +1,5 @@
 ﻿@page
-@model GymGenius.Ui.Pages.SignModel
+@model GymGenius.Ui.Pages.SignInModel
 @{
     ViewData["Title"] = "Sign In";
 }
@@ -10,12 +10,12 @@
 <form method="post">
     <div>
         <label>Name</label>
-        <input asp-for="SignUpUser.PeopleName" class="form-control" />
+        <input asp-for="LoginUser.Email" class="form-control" />
     </div>
 
     <div>
         <label>Password</label>
-        <input asp-for="SignUpUser.PeoplePassword" class="form-control" type="password" />
+        <input asp-for="LoginUser.Password" class="form-control" type="password" />
     </div>
 
 
