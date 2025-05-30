@@ -1,0 +1,44 @@
+﻿@page
+@model GymGenius.Ui.Pages.SignInModel
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<div style="display: flex;">
+    <!-- 🟧 Side Menu -->
+    <div style="width: 200px; background-color: #f44336; color: white; padding: 20px; height: 100vh;">
+        <h2>MENU</h2>
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li><a href="/" style="color: white; text-decoration: none; display: block; margin: 10px 0;">Home</a></li>
+            <li><a href="/About" style="color: white; text-decoration: none; display: block; margin: 10px 0;">About</a></li>
+            <li><a href="/Gallery" style="color: white; text-decoration: none; display: block; margin: 10px 0;">Explore</a></li>
+            <li><a href="/Destinations" style="color: white; text-decoration: none; display: block; margin: 10px 0;">Destinations</a></li>
+            <li><a href="/SignIn" style="color: white; text-decoration: none; display: block; margin: 10px 0;">Sign up/Sign in</a></li>
+        </ul>
+    </div>
+
+    <!-- 🔲 Main Content Area -->
+    <div style="flex: 1; padding: 40px;">
+        <h1 style="font-size: 2rem; font-weight: bold;">Welcome to Sign In</h1>
+        <p>This is the main content area. You can add any content you want here.</p>
+
+        <form method="post" style="margin-top: 20px;">
+            <div style="margin-bottom: 10px;">
+                <label style="display: block;">Email</label>
+                <input asp-for="LoginUser.Email" class="form-control" style="width: 100%; padding: 8px;" />
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <label style="display: block;">Password</label>
+                <input asp-for="LoginUser.Password" class="form-control" type="password" style="width: 100%; padding: 8px;" />
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3" style="padding: 10px 20px;">Submit</button>
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Message))
+        {
+            <p class="mt-3" style="margin-top: 15px; color: red;">@Model.Message</p>
+        }
+    </div>
+</div>
